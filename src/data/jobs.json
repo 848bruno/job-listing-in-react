@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "company": "Photosnap",
+    "logo": "https://via.placeholder.com/48?text=P",
+    "new": true,
+    "featured": true,
+    "position": "Senior Frontend Developer",
+    "postedAt": "1d ago",
+    "contract": "Full Time",
+    "location": "USA only",
+    "role": "Frontend",
+    "level": "Senior",
+    "languages": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "id": 2,
+    "company": "MyHome",
+    "logo": "https://via.placeholder.com/48?text=M",
+    "new": false,
+    "featured": false,
+    "position": "Junior Frontend Developer",
+    "postedAt": "5d ago",
+    "contract": "Contract",
+    "location": "USA only",
+    "role": "Frontend",
+    "level": "Junior",
+    "languages": ["CSS", "JavaScript"]
+  }
+]

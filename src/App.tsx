@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+
+import React, { useEffect, useState, useContext } from 'react';
+import { FilterProvider, FilterContext } from './context/FilterContext';
+import JobCard from './components/JobCard';
+import FilterBar from './components/FilterBar';
+import jobsData from './data/jobs.json';
+import type { Job } from './Types';
+
+const JobList: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
+  const { filters } = useContext(FilterContext);
+
+  const filterJob = (job: Job) => {
+    const tags = [job.role, job.level, ...job.languages];
+    return filters.every(filter => tags.includes(filter));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="mt-6 space-y-6">
+      {jobs.filter(filterJob).map(job => (
+        <JobCard key={job.id} job={job} />
+      ))}
+    </div>
+  );
+};
 
-export default App
+const App: React.FC = () => {
+  const [jobs, setJobs] = useState<Job[]>([]);
+
+  useEffect(() => {
+    setJobs(jobsData);
+  }, []);
+
+  return (
+    <FilterProvider>
+      <div className="bg-cyan-50 min-h-screen p-6 font-sans">
+        <FilterBar />
+        <JobList jobs={jobs} />
+      </div>
+    </FilterProvider>
+  );
+};
+
+export default App;
+
